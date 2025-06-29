@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <ncurses.h>
 
 auto userinput(){
   std::string inp;
@@ -29,4 +30,15 @@ int list(){
 int rm(std::string filename){
   int del = system(fmt::format("rm {}", filename).c_str());
   return 0;
+}
+
+auto ncurseinit(){
+  initscr();
+  cbreak();
+  noecho();
+  keypad(stdscr, TRUE);
+  refresh();
+  
+  
+  //endwin();
 }

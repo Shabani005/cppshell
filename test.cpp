@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <cstdio> // for popen, pclose
+#include <cstdio>
 
 std::vector<std::string> allcommands() {
     std::vector<std::string> words;
