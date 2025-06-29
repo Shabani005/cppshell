@@ -9,28 +9,27 @@ std::vector<std::string> allcommands() {
     std::string result;
     char buffer[128];
 
-    // Open a pipe to the shell command
+    // pipe ex: echo {thing} | grep {thing}
     FILE* pipe = popen("compgen -c", "r");
     if (!pipe) {
         std::cerr << "popen() failed!" << std::endl;
         return words;
     }
 
-    // Read the output into a string
+    // since we know the size of the string we can finite get it for more performance
     while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
         result += buffer;
     }
     pclose(pipe);
 
-    // Split the result by newlines
-    std::istringstream iss(result);
+    // since compgen -c outputs string separated by \n we separate it. 
+    std::istringstream inpss(result);
     std::string line;
-    while (std::getline(iss, line)) {
+    while (std::getline(inpss, line)) {
         if (!line.empty()) {
             words.push_back(line);
         }
     }
-
     return words;
 }
 
